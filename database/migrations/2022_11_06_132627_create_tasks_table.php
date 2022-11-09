@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('customer_id');
             $table->string('title', 100);
-            $table->text('description');
-            $table->string('status', 50);
-            $table->float('hours');
-            $table->dateTime('work_start_date');
-            $table->dateTime('work_end_date');
+            $table->integer('quantity');
+            $table->string('executor', 50);
+            $table->dateTime('deadline');
+            $table->bigInteger('invoice_number');
             $table->timestamps();
         });
     }
