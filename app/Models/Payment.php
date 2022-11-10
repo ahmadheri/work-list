@@ -9,6 +9,11 @@ class Payment extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<float, string>
+     */
     protected $fillable = [
       'price',
       'payment_method',
@@ -16,4 +21,13 @@ class Payment extends Model
       'paid_amount',
       'total'
     ];
+
+    /**
+     * Relationship to task model
+     * 
+     */
+    public function task()
+    {
+      return $this->belongsTo(Task::class);
+    }
 }

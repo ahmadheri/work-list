@@ -9,8 +9,22 @@ class Progress extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<boolean>
+     */
     protected $fillable = [
       'design',
       'print'
     ];
+
+    /**
+     * Relationship to task model
+     * 
+     */
+    public function task()
+    {
+      return $this->belongsTo(Task::class);
+    }
 }
