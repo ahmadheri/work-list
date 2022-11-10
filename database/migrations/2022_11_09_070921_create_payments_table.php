@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('task_id');
+            $table->unsignedBigInteger('task_id');
             $table->float('price');
             $table->string('payment_method', 100);
             $table->float('down_payment');
             $table->float('paid_amount');
             $table->float('total');
             $table->timestamps();
+
+            $table->foreign('task_id')->references('id')->on('tasks');
         });
     }
 

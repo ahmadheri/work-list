@@ -23,6 +23,9 @@ return new class extends Migration
             $table->dateTime('deadline');
             $table->bigInteger('invoice_number');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 

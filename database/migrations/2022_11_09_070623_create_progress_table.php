@@ -19,6 +19,8 @@ return new class extends Migration
             $table->boolean('design');
             $table->boolean('print');
             $table->timestamps();
+
+            $table->foreign('task_id')->references('id')->on('tasks');
         });
     }
 
