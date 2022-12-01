@@ -51,4 +51,52 @@ class UserController extends Controller
 
   }
   
+  public function edit(User $user)
+  {
+    return view('admin.user.edit', compact('user'));
+  }
+
+  public function update(Request $request, User $user)
+  {
+    $this->validate($request, [
+      'name' => 'required',
+      'phone' => 'required',
+      'role' => 'required',
+      'email' => 'required|email',
+      'password' => 'confirmed'
+    ]);
+
+    if ($request->password == '') {
+
+      // update tanpa password 
+      $user = User::findOrFail($user->id);
+      $user->update([
+        'name' => $request->name,
+        'phone' => $request->phone,
+        'role' => $request->role,
+        'email' => $request->email
+      ]);
+
+    } else {
+
+      // udpate dengan password
+      $user = User::findOrFail($user->id);
+      $user->update([
+        'name' => $request->name,
+        'phone' => $request->phone,
+        'role' => $request->role,
+        'email' => $request->email,
+        'password' => bcrypt($request->password)
+      ]);
+
+    }
+
+    if($user) {
+      return redirect()->route('admin.user.index')->with(['success' => 'Data Berhasil Diupdate']);
+    } else {
+      return redirect()->route('admin.user.index')->with(['error' => 'Data Gagal Diupdate']);
+    }
+
+  }
+
 }
