@@ -20,6 +20,9 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <!-- Sweet Alert 2 -->
+  <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
+
   <style>
     .form-control:focus {
       color: #6e707e;
@@ -248,7 +251,7 @@
   <script>
     //sweetalert for success or error message
     @if(session()->has('success'))
-        swal({
+        swal.fire({
             type: "success",
             icon: "success",
             title: "BERHASIL!",
@@ -259,7 +262,7 @@
             buttons: false,
         });
         @elseif(session()->has('error'))
-        swal({
+        swal.fire({
             type: "error",
             icon: "error",
             title: "GAGAL!",
