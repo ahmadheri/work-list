@@ -83,8 +83,10 @@
                 name="password_confirmation" placeholder="Konfirmasi ulang password Anda">
               </div>
 
-              <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-              <button type="reset" class="btn btn-danger btn-sm">Reset</button>
+              <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa fa-paper-plane"></i> SIMPAN</button>
+              <button type="reset" class="btn btn-warning btn-sm">
+                <i class="fa fa-redo"></i> RESET</button>
 
             </form>
           </div>
