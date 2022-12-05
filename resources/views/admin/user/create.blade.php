@@ -18,10 +18,10 @@
           </div>
 
           <div class="card-body">
-            <form action="{{ route('admin.user.store') }}" method="POST">
+            <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
 
-              <div class="form-group" enctype="multipart/form-data">
+              <div class="form-group">
                 <label for="">Nama</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" 
                 name="name" value="{{ old('name') }}" placeholder="Isi Nama Lengkap" autofocus>
