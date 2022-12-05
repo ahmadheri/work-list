@@ -99,4 +99,20 @@ class UserController extends Controller
 
   }
 
+  public function destroy($id)
+  {
+    $user = User::findOrFail($id);
+    $user->delete();
+
+    if($user) {
+      return response()->json([
+        'status' => 'success'
+      ]);
+    } else {
+      return response()->json([
+        'status' => 'error'
+      ]);
+    }
+  }
+
 }
