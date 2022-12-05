@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('auth.login');
 })->name('login');
+
+Route::prefix('admin')->group(function () {
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+
+  // User 
+  Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+  Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
+  Route::post('/user/store', [UserController::class, 'store'])->name('admin.user.store');
+  Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('admin.user.edit');
+  Route::put('/user/update/{user}', [UserController::class, 'update'])->name('admin.user.update');
+  Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
+  // Customer
+  Route::get('/customer', [CustomerController::class, 'index'])->name('admin.customer.index');
+  Route::get('/customer/create', [CustomerController::class, 'create'])->name('admin.customer.create');
+  Route::post('/customer/store', [CustomerController::class, 'store'])->name('admin.customer.store');
+
+  Route::get('/task', [TaskController::class, 'index'])->name('admin.task.index');
+});
+
