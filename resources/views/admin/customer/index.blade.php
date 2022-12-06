@@ -57,11 +57,17 @@
                       <td>{{ $customer->name }}</td>
                       <td>{{ $customer->phone }}</td>
                       <td>{{ $customer->email }}</td>
-                      <td> 
-                        <button type="" class="btn btn-success btn-sm">Edit</button>
-                      
+                      <td style="text-align: center;"> 
+                        <a href="{{ route('admin.customer.edit', $customer->id) }}"
+                          class="btn btn-success btn-sm">
+                          <i class="fas fa-pencil-alt"></i>
+                          Edit
+                        </a>
+                        <button onclick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $customer->id }}">
+                          <i class="fas fa-trash"></i>
+                          Delete
+                        </button>                    
                       </td>
-                      
                       
                   </tr>
                   @endforeach
@@ -72,10 +78,67 @@
         </div>
       </div>
         
-
     </div>
 
-
 </div>
+
+<script>
+
+  function Delete(id) {
+
+    var id = id
+    var token = $("meta[name='csrf-token']").attr("content")
+
+    Swal.fire({
+      title: 'Apakah Anda yakin',
+      text: 'ingin menghapus data ini ?',
+      icon: 'warning',
+      showConfirmButton: true,
+      showCancelButton: true,
+      focusCancel: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        jQuery.ajax({
+          url: '/admin/customer/' + id,
+          data: {
+            'id' : id,
+            '_token': token
+          },
+          type: 'DELETE',
+          success: function (response) {
+            if (response.status == 'success') {
+              Swal.fire({
+                title: 'BERHASIL!',
+                text: 'DATA BERHASIL DIHAPUS!',
+                icon: 'success',
+                timer: 1000,
+                showConfirmButton: false,
+                showCancelButton: false,
+              }).then(function () {
+                location.reload();
+              });
+            } else {
+              Swal.fire({
+                title: 'GAGAL!',
+                text: 'DATA GAGAL DIHAPUS!',
+                icon: 'error',
+                timer: 1000,
+                showConfirmButton: false,
+                showCancelButton: false,
+              }).then(function () {
+                location.reload()
+              });
+            }
+          }
+        })
+      } else {
+        return true
+      }
+    })
+
+  }
+
+</script>
 
 @endsection

@@ -36,7 +36,11 @@ Route::prefix('admin')->group(function () {
   Route::get('/customer', [CustomerController::class, 'index'])->name('admin.customer.index');
   Route::get('/customer/create', [CustomerController::class, 'create'])->name('admin.customer.create');
   Route::post('/customer/store', [CustomerController::class, 'store'])->name('admin.customer.store');
+  Route::get('/customer/edit/{customer}', [CustomerController::class, 'edit'])->name('admin.customer.edit');
+  Route::put('/customer/update/{customer}', [CustomerController::class, 'update'])->name('admin.customer.update');
+  Route::delete('/customer/{id}', [CustomerController::class, 'destroy']);
 
+  // Task
   Route::get('/task', [TaskController::class, 'index'])->name('admin.task.index');
 });
 
