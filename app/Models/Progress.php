@@ -15,6 +15,7 @@ class Progress extends Model
      * @var array<boolean>
      */
     protected $fillable = [
+      'task_id',
       'design',
       'print'
     ];

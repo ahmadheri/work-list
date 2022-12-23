@@ -15,6 +15,7 @@ class Payment extends Model
      * @var array<float, string>
      */
     protected $fillable = [
+      'task_id',
       'price',
       'payment_method',
       'down_payment',
