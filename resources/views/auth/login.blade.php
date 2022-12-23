@@ -22,7 +22,7 @@
               <h1 class="h5 text-gray-900 mb-3">LOGIN ADMIN</h1>
             </div>
 
-            <form action="{{ route('admin.dashboard.index') }}" method="GET">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="form-group">
                   <label class="font-weight-bold text-uppercase">Email address</label>

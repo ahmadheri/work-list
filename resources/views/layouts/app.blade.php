@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="shortcut icon" href="{{ asset('assets/img/shop-2.png') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('assets/img/logo-pcid.png') }}" type="image/x-icon">
 
   <title>{{ $title ?? config('app.name') }} - Work List</title>
 
@@ -22,6 +22,9 @@
 
   <!-- Sweet Alert 2 -->
   <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
+
+  <!-- jQuery -->
+  <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>  
 
   <style>
     .form-control:focus {
@@ -47,12 +50,6 @@
       color: white;
     }
   </style>
-
-  <!-- jQuery -->
-  <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>  
-
-  <!-- sweet alert -->
-  <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>  
 
 </head>
 
@@ -86,9 +83,9 @@
       <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <div class="sidebar-heading">
+      <!-- <div class="sidebar-heading">
         Kerjaan
-      </div>
+      </div> -->
 
       <li class="nav-item {{ Request::is('admin/task*') ? ' active' :  '' }}">
         <a class="nav-link" href="{{ route('admin.task.index') }}">
@@ -242,11 +239,11 @@
   <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
 
   <!-- Page level plugins -->
-  <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
+  <!-- <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script> -->
 
   <!-- Page level custom scripts -->
-  <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
+  <!-- <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
+  <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script> -->
 
   <script>
     //sweetalert for success or error message
