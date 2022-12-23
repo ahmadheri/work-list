@@ -24,7 +24,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <a href="#" class="btn btn-primary btn-sm pt-2">
+                    <a href="{{ route('admin.task.create') }}" class="btn btn-primary btn-sm pt-2">
                       <i class="fa fa-plus-circle"></i> TAMBAH
                     </a>
                   </div>
