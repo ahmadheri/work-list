@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('task_id');
-            $table->float('price');
+            $table->float('price')->nullable();
             $table->string('payment_method', 100);
-            $table->float('down_payment');
+            $table->float('down_payment')->nullable();
             $table->float('paid_amount');
-            $table->float('total');
+            $table->float('total')->nullable();
             $table->timestamps();
 
             $table->foreign('task_id')->references('id')->on('tasks');
