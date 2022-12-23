@@ -16,10 +16,18 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->insert([
-          'name' => 'Anita',
-          'phone' => '085255667788',
-          'email' => 'anita@gmail.com',
-          'created_at' => now()
+          [
+            'name' => 'Anita',
+            'phone' => '085255667788',
+            'email' => 'anita@gmail.com',
+            'created_at' => now()
+          ],
+          [
+            'name' => 'Mikita',
+            'phone' => '085250567890',
+            'email' => 'mikita@gmail.com',
+            'created_at' => now()
+          ]
         ]);
     }
 }

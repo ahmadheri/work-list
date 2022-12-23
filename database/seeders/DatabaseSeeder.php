@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
           CustomerSeeder::class,
           TaskSeeder::class,
           ProgressSeeder::class,
-          PaymentSeeder::class
+          PaymentSeeder::class,
         ]);
     }
 }

@@ -16,15 +16,29 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // input multiple rows must be array of arrays. double [[]]
+
         DB::table('users')->insert([
-          'name' => 'Admin',
-          'phone' => '085250995099',
-          'email' => 'admin@gmail.com',
-          'email_verified_at' => now(),
-          'password' => bcrypt('admin123'), // password
-          'role' => 'admin',
-          'remember_token' => Str::random(10),
-          'created_at' => now()
+          [
+            'name' => 'Admin',
+            'phone' => '085250995099',
+            'email' => 'admin@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('admin123'), // password
+            'role' => 'admin',
+            'remember_token' => Str::random(10),
+            'created_at' => now()
+          ],
+          [
+            'name' => 'Dani',
+            'phone' => '085250515253',
+            'email' => 'dani@gmail.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('dani'), // password
+            'role' => 'karyawan',
+            'remember_token' => Str::random(10),
+            'created_at' => now()  
+          ]
         ]);
     }
 }
