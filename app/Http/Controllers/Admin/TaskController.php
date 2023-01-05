@@ -9,7 +9,6 @@ use App\Models\Progress;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -19,7 +18,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-      $tasks = Task::with(['user', 'customer','progress'])->latest()->when(request()->q, 
+      $tasks = Task::with(['user', 'customer', 'progress'])->latest()->when(request()->q, 
         function($tasks) {
           $tasks = $tasks->where('title', 'like', '%' . request()->q . '%');
       })->paginate(10);
@@ -47,16 +46,15 @@ class TaskController extends Controller
         'quantity' => 'required',
         'deadline' => 'required',
         'payment_method' => 'required',
-        'paid_amount' => 'required',
         'invoice_number' => 'required'
       ]);
 
-      $customerId = Customer::where('name', 'Like', '%' . $request->customer_name . '%')->first();
-      $picId = User::where('name', 'Like', '%' . $request->pic_name . '%')->first();
+      $customer = Customer::where('name', 'Like', '%' . $request->customer_name . '%')->first();
+      $pic = User::where('name', 'Like', '%' . $request->pic_name . '%')->first();
 
       $task = Task::create([
-        'customer_id' => $customerId->id,
-        'user_id' => $picId->id,
+        'customer_id' => $customer->id,
+        'user_id' => $pic->id,
         'title' => $request->title,
         'quantity' => $request->quantity,
         'deadline' => $request->deadline,
@@ -87,6 +85,81 @@ class TaskController extends Controller
 
     }
 
+    public function edit(Task $task)
+    {
+      // $customer = Customer::findOrFail()
+
+      return view('admin.task.edit', compact('task'));
+    }
+
+    public function update(Request $request, Task $task)
+    {
+      $this->validate($request, [
+        'title' => 'required',
+        'customer_name' => 'required',
+        'pic_name' => 'required',
+        'quantity' => 'required',
+        'deadline' => 'required',
+        'payment_method' => 'required',
+        'invoice_number' => 'required'
+      ]);
+
+      $customer = Customer::where('name', 'Like', '%' . $request->customer_name . '%')->first();
+      $pic = User::where('name', 'Like', '%' . $request->pic_name . '%')->first();
+
+      $task = Task::findOrFail($task->id);
+      $task->update([
+        'title' => $request->title,
+        'customer_id' => $customer->id,
+        'user_id' => $pic->id,
+        'quantity' => $request->quantity,
+        'executor' => $request->executor,
+        'design' => $request->progress,
+        'print' => $request->progress,
+        'deadline' => $request->deadline,
+        'payment_method' => $request->payment_method,
+        'paid_amount' => $request->paid_amount,
+        'invoice_number' => $request->invoice_number
+      ]);
+
+      $taskId = $task->id;
+
+      $progress = Progress::findOrFail($taskId);
+      $progress->update([
+        'design' => $request->design,
+        'print' => $request->print,
+      ]);
+
+      $payment = Payment::findOrFail($taskId);
+      $payment->update([
+        'paid_amount' => $request->paid_amount,
+        'total' => $request->down_payment + $request->paid_amount,
+      ]);
+
+      if ($task && $progress && $payment) {
+        return redirect()->route('admin.task.index')->with(['success' => 'Data Berhasil diupdate! ']);
+      } else {
+        return redirect()->route('admin.task.index')->with(['error' => 'Data Gagal Diupdate']);
+      }
+
+    }
+
+    public function destroy($id)
+    {
+      $task = Task::findOrFail($id);
+      $task->delete();
+
+      if ($task) {
+        return response()->json([
+          'status' => 'success'
+        ]);
+      } else {
+        return response()->json([
+          'status' => 'error'
+        ]);
+      }
+    }
+
     /**
      * Search Customer
      * 
@@ -105,6 +178,7 @@ class TaskController extends Controller
         '<tr>
           <td>' .$cust->name. '</td>
           <td>' .$cust->email. '</td>
+          <td>' .$cust->phone. '</td>
           <td><button onclick="searchCustomerID(this.id)" type="button" class="btn btn-primary" id="'.$cust->id.'">Pilih</button></td>
 
         </tr>';

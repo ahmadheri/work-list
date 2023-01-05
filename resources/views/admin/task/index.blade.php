@@ -93,11 +93,11 @@
                     <td>{{ $task->payment->total }}</td>
                     <td>{{ $task->invoice_number }}</td>
                     <td>
-                      <a href="" class="btn btn-sm btn-block btn-success">
+                      <a href="{{ route('admin.task.edit', $task->id)  }}" class="btn btn-sm btn-block btn-success">
                         <i class="fas fa-pencil-alt"></i>
                         Edit
                       </a>
-                      <button class="btn btn-sm btn-block btn-danger">
+                      <button onclick="Delete(this.id)" class="btn btn-sm btn-block btn-danger" id="{{ $task->id }}">
                         <i class="fas fa-trash"></i>
                         Delete
                       </button>
@@ -116,5 +116,69 @@
 
 
 </div>
+
+<script>
+
+  function Delete(id) {
+
+    var id = id
+    var token = $("meta[name='csrf-token']").attr("content")
+
+    Swal.fire({
+      title: 'Apakah Anda yakin',
+      text: 'ingin menghapus data ini ?',
+      icon: 'warning',
+      showConfirmButton: true,
+      showCancelButton: true,
+      focusCancel: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        jQuery.ajax({
+          url: '/admin/task/' + id,
+          data: {
+            'id': id,
+            '_token': token
+          },
+          type: 'DELETE',
+          success: function (response) {
+            if (response.status == 'success') {
+              swal.fire({
+                  title: 'BERHASIL!',
+                  text: 'DATA BERHASIL DIHAPUS!',
+                  icon: 'success',
+                  timer: 1000,
+                  showConfirmButton: false,
+                  showCancelButton: false,
+                  buttons: false,
+                }).then(function () {
+                  location.reload();
+                });
+              } else {
+                swal.fire({
+                  title: 'GAGAL!',
+                  text: 'DATA GAGAL DIHAPUS!',
+                  icon: 'error',
+                  timer: 1000,
+                  showConfirmButton: false,
+                  showCancelButton: false,
+                  buttons: false,
+                }).then(function () {
+                  location.reload();
+                });
+              }
+            }
+        })
+
+      } else {
+        return true
+      }
+    })
+
+  }
+
+</script>
+
+
 
 @endsection

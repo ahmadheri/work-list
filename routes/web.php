@@ -51,10 +51,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/task/search-customer/{id}', [TaskController::class, 'searchCustomerID']);
     Route::get('/task/search-pic', [TaskController::class, 'searchPersonInCharge'])->name('admin.task.search-pic');
     Route::get('/task/search-pic/{id}', [TaskController::class, 'searchPICID']);
-  
-    Route::get('/task/session', [TaskController::class, 'accessSessionData']);
+    Route::get('/task/edit/{task}', [TaskController::class, 'edit'])->name('admin.task.edit');
+    Route::put('/task/update/{task}', [TaskController::class, 'update'])->name('admin.task.update');
+    Route::delete('/task/{id}', [TaskController::class, 'destroy']);
 
   });
-
 });
-
