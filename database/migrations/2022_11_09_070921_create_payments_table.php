@@ -19,11 +19,12 @@ return new class extends Migration
             $table->float('price')->nullable();
             $table->string('payment_method', 100);
             $table->float('down_payment')->nullable();
-            $table->float('paid_amount');
+            $table->float('paid_amount')->nullable();
             $table->float('total')->nullable();
             $table->timestamps();
 
-            $table->foreign('task_id')->references('id')->on('tasks');
+            // onDelete Cascade jika data di parent table (task) dihapus maka children table (payment) juga terhapus
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
         });
     }
 

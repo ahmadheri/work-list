@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('progress', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('task_id');
-            $table->boolean('design');
-            $table->boolean('print');
+            $table->boolean('design')->nullable();
+            $table->boolean('print')->nullable();
             $table->timestamps();
 
-            $table->foreign('task_id')->references('id')->on('tasks');
+            // onDelete Cascade jika data di parent table (task) dihapus maka children table (progress) juga terhapus
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade'); 
         });
     }
 
