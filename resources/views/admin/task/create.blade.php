@@ -9,7 +9,7 @@
         <div class="card border-0 shadow mb-4">
           <div class="card-header">
             <h6 class="m-0 font-weight-bold"><i class="fas fa-tasks"></i>
-              TAMBAH KERJAAN <?php echo(auth()->user()->id )  ?>
+              TAMBAH KERJAAN 
             </h6>
           </div>
 
